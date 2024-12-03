@@ -11,8 +11,8 @@ function AnimeCard({ anime }: Props) {
   return (
     <Card width="300px">
       <Image
-        src={getCroppedImageUrl(anime.images.webp.small_image_url)}
-        alt={anime.images.webp.small_image_url}
+        src={getCroppedImageUrl(anime.images.webp.large_image_url)}
+        alt={anime.images.webp.large_image_url}
       />
       <CardBody>
         <HStack justifyContent={"space-between"}>
