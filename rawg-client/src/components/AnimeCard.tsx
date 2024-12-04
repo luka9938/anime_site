@@ -1,8 +1,8 @@
 import { Anime } from "../entities/Anime";
-import { Card, CardBody, Heading, HStack, Image } from "@chakra-ui/react";
+import { Card, CardBody, Heading, HStack, Image, Text, Link } from "@chakra-ui/react"; // Import Link from Chakra UI
 import CriticScore from "./CriticScore";
 import getCroppedImageUrl from "../services/image-url";
-import { Link } from "react-router"; // Updated import for react-router
+import { Link as RouterLink } from "react-router"; // Updated import for react-router
 
 interface Props {
   anime: Anime;
@@ -26,9 +26,19 @@ function AnimeCard({ anime }: Props) {
         </HStack>
         <Heading fontSize="2xl">
           <HStack>
-            <Link to={`/anime/${anime.mal_id}`}>{anime.title}</Link>
+            {/* Use Chakra UI's Link component with hover styles */}
+            <Link
+              as={RouterLink}
+              to={`/anime/${anime.mal_id}`}
+              _hover={{ textDecoration: "underline", color: "blue.500" }} // Add hover effect here
+            >
+              {anime.title}
+            </Link>
           </HStack>
         </Heading>
+        <Text>
+          <strong>Status:</strong> {anime.status}
+        </Text>
       </CardBody>
     </Card>
   );

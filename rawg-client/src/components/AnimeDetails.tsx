@@ -38,7 +38,7 @@ const AnimeDetails = () => {
 
   return (
     <div className="animedetailsContainer">
-      <button onClick={() => navigate("/")} className="backButton">
+      <button onClick={() => navigate("/")} className="button-50">
         Back to Homepage
       </button>
 
@@ -60,11 +60,15 @@ const AnimeDetails = () => {
         <strong>Year:</strong> {anime.year}
       </p>
       <p className="animedetailsP">
+        <strong>Episodes:</strong> {anime.episodes}
+      </p>
+
+      <p className="animedetailsP">
         <strong>Synopsis:</strong> {anime.synopsis}
       </p>
 
       <a className="animedetailsA" href={anime.url} target="_blank" rel="noopener noreferrer">
-        <button className="animedetailsButton">More Info</button>
+        <button className="button-50">More Info</button>
       </a>
 
       {/* Trailer Section */}
