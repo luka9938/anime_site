@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
-import ApiClient from "../services/api_client";
-import "./AnimeDetails.css";
-import AnimeTrailer from "./AnimeTrailer";
-import DetailItem from "./DetailItem";
+import axios from "axios";
+import "../components/AnimeDetails.css";
+import AnimeTrailer from "../components/AnimeTrailer";
+import DetailItem from "../components/DetailItem";
 
 const animeApiClient = new ApiClient("anime");
 
