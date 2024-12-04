@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Trailer } from "../entities/Trailer";
 
 const useAnimeTrailer = (animeId: string | undefined) => {
-  const [trailerUrl, setTrailerUrl] = useState<string | null>(null);
+  const [trailer, setTrailer] = useState<Trailer | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -10,13 +11,19 @@ const useAnimeTrailer = (animeId: string | undefined) => {
       axios
         .get(`https://api.jikan.moe/v4/anime/${animeId}`)
         .then((response) => {
-          const youtubeUrl = response.data.data.trailer?.url;
-          if (youtubeUrl) {
-            // Extract YouTube video ID and convert to embed URL
-            const videoId = youtubeUrl.split("v=")[1]?.split("&")[0];
-            setTrailerUrl(videoId ? `https://www.youtube.com/embed/${videoId}` : null);
+          const trailerData = response.data.data.trailer;
+          if (trailerData) {
+            setTrailer({
+              id: parseInt(animeId),
+              name: trailerData.title || "Unknown Trailer",
+              preview: trailerData.images?.medium || "",
+              data: {
+                480: trailerData.url || "",
+                max: trailerData.embed_url || "",
+              },
+            });
           } else {
-            setTrailerUrl(null);
+            setTrailer(null);
           }
           setError(null);
         })
@@ -27,7 +34,7 @@ const useAnimeTrailer = (animeId: string | undefined) => {
     }
   }, [animeId]);
 
-  return { trailerUrl, error };
+  return { trailer, error };
 };
 
 export default useAnimeTrailer;

@@ -1,23 +1,24 @@
-import React from "react";
 import useAnimeTrailer from "../hooks/useAnimeTrailer";
+import "./AnimeTrailer.css";
 
 interface Props {
   animeId: string;
 }
 
 const AnimeTrailer = ({ animeId }: Props) => {
-  const { trailerUrl, error } = useAnimeTrailer(animeId);
+  const { trailer, error } = useAnimeTrailer(animeId);
 
   if (error) return <div>{error}</div>;
 
-  return trailerUrl ? (
+  return trailer ? (
     <div className="trailerSection">
-      <h3>Trailer</h3>
+      <h3>{trailer.name}</h3>
       <iframe
         width="1120"
         height="630"
-        src={trailerUrl}
-        title="Anime Trailer"
+        // Ensure autoplay=0 is included in the URL to disable autoplay
+        src={`${trailer.data.max ? trailer.data.max : trailer.data[480]}?autoplay=0`}
+        title={trailer.name}
         frameBorder="0"
         allow="fullscreen"
         allowFullScreen
