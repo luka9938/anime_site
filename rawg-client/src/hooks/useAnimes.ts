@@ -1,4 +1,3 @@
-// hooks/useAnimes.ts
 import { useInfiniteQuery } from "@tanstack/react-query";
 import ApiClient from "../services/api_client";
 import useAnimeQueryStore from "../store";
@@ -13,20 +12,36 @@ const useAnimes = () => {
     async ({ pageParam = 1 }) => {
       const params: Record<string, any> = {
         page: pageParam,
-        q: animeQuery.searchText,
+        q: animeQuery.searchText || "",
         genres: animeQuery.genreId,
         type: animeQuery.type,
         rating: animeQuery.rating,
-        order_by: animeQuery.sortOrder?.replace("-", ""), // API may require "order_by"
-        sort: animeQuery.sortOrder?.startsWith("-") ? "desc" : "asc",
+        order_by: animeQuery.sortOrder || "",
+        sort:
+          animeQuery.sortOrder === "popularity"
+            ? "asc" // Popularity sorted in ascending order
+            : animeQuery.sortOrder === "start_date"
+            ? "desc"
+            : animeQuery.sortOrder === "title"
+            ? "asc" // Release Date sorted in descending order
+            : "desc", // Default descending for other sorts
       };
 
-      // Remove undefined values to prevent invalid query parameters
-      Object.keys(params).forEach(
-        (key) => params[key] === undefined && delete params[key]
-      );
+      const response = await apiClient.getAll({ params });
 
-      return apiClient.getAll({ params });
+      // Filter out items without a score or release date
+      // Filter out items without a score
+      const filteredData =
+        animeQuery.sortOrder === "start_date"
+          ? response.data // Do not filter when sorting by release date
+          : response.data.filter(
+              (anime) => anime.score !== null && anime.aired?.from !== null // Ensure valid score and release date for other sorts
+            );
+
+      return {
+        ...response,
+        data: filteredData,
+      };
     },
     {
       getNextPageParam: (lastPage) =>
