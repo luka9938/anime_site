@@ -5,10 +5,10 @@ import theme from "./theme";
 import "./main.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { BrowserRouter, Routes, Route } from "react-router";
+import { BrowserRouter, Routes, Route } from "react-router"; // Update to "react-router-dom"
 import Layout from "./pages/Layout";
-import GameDetailPage from "./pages/GameDetailPage";
 import HomePage from "./pages/HomePage";
+import AnimeDetails from "./components/AnimeDetails"; // Import AnimeDetails page
 
 const queryClient = new QueryClient();
 
@@ -21,7 +21,8 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<HomePage />} />
-              <Route path="/games/:slug" element={<GameDetailPage />} />
+              {/* Add route for AnimeDetails page */}
+              <Route path="/anime/:id" element={<AnimeDetails />} />
             </Route>
           </Routes>
         </BrowserRouter>
