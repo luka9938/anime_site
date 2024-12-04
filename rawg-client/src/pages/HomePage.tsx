@@ -20,8 +20,8 @@ const HomePage = () => {
     >
       <Show above="lg">
         <GridItem area={"aside"}>
-          <GenreList />
           <RatingList />
+          <GenreList />
         </GridItem>
       </Show>
       <GridItem area={"main"}>

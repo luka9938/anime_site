@@ -16,22 +16,47 @@ interface AnimeQueryStore {
   setRating: (rating: string) => void;
   setSortOrder: (sortOrder: string) => void;
   setSearchText: (searchText: string) => void;
-  reset: () => void; // Add reset method
+  reset: () => void;
 }
 
 const useAnimeQueryStore = create<AnimeQueryStore>((set) => ({
-  animeQuery: {},
+  animeQuery: {
+    genreId: undefined,
+    type: undefined,
+    rating: undefined,
+    sortOrder: undefined,
+    searchText: "",
+  },
   setGenreId: (genreId) =>
-    set((state) => ({ animeQuery: { ...state.animeQuery, genreId } })),
+    set((state) => ({
+      animeQuery: { ...state.animeQuery, genreId },
+    })),
   setType: (type) =>
-    set((state) => ({ animeQuery: { ...state.animeQuery, type } })),
+    set((state) => ({
+      animeQuery: { ...state.animeQuery, type },
+    })),
   setRating: (rating) =>
-    set((state) => ({ animeQuery: { ...state.animeQuery, rating } })),
+    set((state) => ({
+      animeQuery: { ...state.animeQuery, rating },
+    })),
   setSortOrder: (sortOrder) =>
-    set((state) => ({ animeQuery: { ...state.animeQuery, sortOrder } })),
+    set((state) => ({
+      animeQuery: { ...state.animeQuery, sortOrder },
+    })),
   setSearchText: (searchText) =>
-    set((state) => ({ animeQuery: { ...state.animeQuery, searchText } })),
-  reset: () => set(() => ({ animeQuery: {} })), // Reset animeQuery to its default state
+    set((state) => ({
+      animeQuery: { ...state.animeQuery, searchText },
+    })),
+  reset: () =>
+    set(() => ({
+      animeQuery: {
+        genreId: undefined,
+        type: undefined,
+        rating: undefined,
+        sortOrder: undefined,
+        searchText: "",
+      },
+    })),
 }));
 
 export default useAnimeQueryStore;
