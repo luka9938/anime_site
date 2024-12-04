@@ -1,36 +1,37 @@
-import { create } from "zustand"; //prop drilling - App --> NavBar --> SearchBar
-//logic for updating the gameQuery is spread all over the place
+// store/useAnimeQueryStore.ts
+import { create } from "zustand";
 
-export interface GameQuery {
+export interface AnimeQuery {
   genreId?: number;
-  platformId?: number;
-  storeId?: number;
+  type?: string;
+  rating?: string;
   sortOrder?: string;
   searchText?: string;
 }
 
-interface GameQueryStore {
-  gameQuery: GameQuery;
-  setSearchText: (searchText: string) => void;
+interface AnimeQueryStore {
+  animeQuery: AnimeQuery;
   setGenreId: (genreId: number) => void;
-  setPlatformId: (platformId: number) => void;
-  setStoreId: (storeId: number) => void;
+  setType: (type: string) => void;
+  setRating: (rating: string) => void;
   setSortOrder: (sortOrder: string) => void;
-  reset: () => void;
+  setSearchText: (searchText: string) => void;
+  reset: () => void; // Add reset method
 }
 
-const useGameQueryStore = create<GameQueryStore>((set) => ({
-  gameQuery: {},
-  setSearchText: (searchText) => set(() => ({ gameQuery: { searchText } })),
+const useAnimeQueryStore = create<AnimeQueryStore>((set) => ({
+  animeQuery: {},
   setGenreId: (genreId) =>
-    set((store) => ({ gameQuery: { ...store.gameQuery, genreId } })),
-  setPlatformId: (platformId) =>
-    set((store) => ({ gameQuery: { ...store.gameQuery, platformId } })),
-  setStoreId: (storeId) =>
-    set((store) => ({ gameQuery: { ...store.gameQuery, storeId } })),
+    set((state) => ({ animeQuery: { ...state.animeQuery, genreId } })),
+  setType: (type) =>
+    set((state) => ({ animeQuery: { ...state.animeQuery, type } })),
+  setRating: (rating) =>
+    set((state) => ({ animeQuery: { ...state.animeQuery, rating } })),
   setSortOrder: (sortOrder) =>
-    set((store) => ({ gameQuery: { ...store.gameQuery, sortOrder } })),
-  reset: () => set(() => ({ gameQuery: {} })),
+    set((state) => ({ animeQuery: { ...state.animeQuery, sortOrder } })),
+  setSearchText: (searchText) =>
+    set((state) => ({ animeQuery: { ...state.animeQuery, searchText } })),
+  reset: () => set(() => ({ animeQuery: {} })), // Reset animeQuery to its default state
 }));
 
-export default useGameQueryStore;
+export default useAnimeQueryStore;

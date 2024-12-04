@@ -1,20 +1,32 @@
 // hooks/useAnimes.ts
 import { useInfiniteQuery } from "@tanstack/react-query";
 import ApiClient from "../services/api_client";
+import useAnimeQueryStore from "../store";
 
 const apiClient = new ApiClient("anime");
 
-const useAnimes = (query: { searchText?: string; genreId?: number }) => {
+const useAnimes = () => {
+  const animeQuery = useAnimeQueryStore((state) => state.animeQuery);
+
   return useInfiniteQuery(
-    ["animes", query],
+    ["animes", animeQuery],
     async ({ pageParam = 1 }) => {
-      return apiClient.getAll({
-        params: {
-          page: pageParam,
-          q: query.searchText,
-          genres: query.genreId,
-        },
-      });
+      const params: Record<string, any> = {
+        page: pageParam,
+        q: animeQuery.searchText,
+        genres: animeQuery.genreId,
+        type: animeQuery.type,
+        rating: animeQuery.rating,
+        order_by: animeQuery.sortOrder?.replace("-", ""), // API may require "order_by"
+        sort: animeQuery.sortOrder?.startsWith("-") ? "desc" : "asc",
+      };
+
+      // Remove undefined values to prevent invalid query parameters
+      Object.keys(params).forEach(
+        (key) => params[key] === undefined && delete params[key]
+      );
+
+      return apiClient.getAll({ params });
     },
     {
       getNextPageParam: (lastPage) =>

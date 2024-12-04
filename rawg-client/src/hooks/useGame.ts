@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import ApiClient from "../services/api_client";
 import { Anime } from "../entities/Anime";
 
-const apiClient = new ApiClient<Anime>("/games");
+const apiClient = new ApiClient<Anime>("anime");
 
 const useGame = () => {
   return useQuery({

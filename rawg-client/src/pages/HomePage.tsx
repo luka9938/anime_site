@@ -1,8 +1,10 @@
 import { Grid, GridItem, Show, Box, HStack } from "@chakra-ui/react";
-import GameGrid from "../components/AnimeGrid";
-import GameHeading from "../components/GameHeading";
-import PlatformSelector from "../components/PlatformSelector";
+import AnimeGrid from "../components/AnimeGrid";
+import AnimeHeading from "../components/AnimeHeading";
+import PlatformSelector from "../components/TypeSelector";
 import SortSelector from "../components/SortSelector";
+import GenreList from "../components/GenreList";
+import RatingList from "../components/RatingList";
 const HomePage = () => {
   return (
     <Grid
@@ -17,17 +19,20 @@ const HomePage = () => {
       }}
     >
       <Show above="lg">
-        <GridItem area={"aside"}></GridItem>
+        <GridItem area={"aside"}>
+          <GenreList />
+          <RatingList />
+        </GridItem>
       </Show>
       <GridItem area={"main"}>
         <Box paddingLeft={2}>
-          <GameHeading />
+          <AnimeHeading />
           <HStack spacing="5" marginBottom={5}>
             <PlatformSelector />
             <SortSelector />
           </HStack>
         </Box>
-        <GameGrid />
+        <AnimeGrid />
       </GridItem>
     </Grid>
   );
