@@ -57,7 +57,8 @@ const AnimeDetails = () => {
         <button className="button-50">More Info</button>
       </a>
 
-      <AnimeTrailer animeId={id!} />
+      {/* Conditionally render AnimeTrailer only if there is a trailer available */}
+      {anime.trailer && anime.trailer.url && <AnimeTrailer animeId={id!} />}
     </div>
   );
 };
