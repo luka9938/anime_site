@@ -5,7 +5,7 @@ interface Props {
 }
 
 function CriticScore({ score }: Props) {
-  const color = score > 85 ? "green" : score > 80 ? "yellow" : "red";
+  const color = score > 7.9 ? "green" : score > 5.9 ? "yellow" : "red";
   return (
     <Badge
       colorScheme={color}

@@ -5,11 +5,11 @@ import useAnimeQueryStore from "../store";
 const SortSelector = () => {
   const sortOrders = [
     { label: "Relevance", value: "" },
-    { label: "Release Date", value: "-released" },
-    { label: "Average Rating", value: "-rating" },
+    { label: "Release Date", value: "release_date" },
+    { label: "Average Rating", value: "rating" },
     { label: "Name", value: "name" },
-    { label: "Popularity", value: "-popularity" },
-    { label: "Date Added", value: "-added" },
+    { label: "Popularity", value: "popularity" },
+    { label: "Date Added", value: "added" },
   ];
 
   const sortOrder = useAnimeQueryStore((state) => state.animeQuery.sortOrder);
