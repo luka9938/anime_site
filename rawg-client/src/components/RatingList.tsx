@@ -1,12 +1,9 @@
 import { Heading, List, ListItem, HStack, Button } from "@chakra-ui/react";
-import { useState } from "react";
 import useAnimeQueryStore from "../store";
 import useRating from "../hooks/useRating";
 
 const RatingList = () => {
-  const [isExpanded, setIsExpanded] = useState(false);
   const { ratings } = useRating();
-  const displayedRatings = isExpanded ? ratings : ratings.slice(0, 5);
 
   const selectedRating = useAnimeQueryStore((state) => state.animeQuery.rating);
   const setSelectedRating = useAnimeQueryStore((state) => state.setRating);
@@ -17,7 +14,7 @@ const RatingList = () => {
         Ratings
       </Heading>
       <List spacing={3}>
-        {displayedRatings.map((rating) => (
+        {ratings.map((rating) => (
           <ListItem key={rating.id} paddingY="5px">
             <HStack>
               <Button
@@ -31,9 +28,6 @@ const RatingList = () => {
             </HStack>
           </ListItem>
         ))}
-        <Button onClick={() => setIsExpanded(!isExpanded)} marginTop={4}>
-          {isExpanded ? "Show less" : "Show more"}
-        </Button>
       </List>
     </>
   );
