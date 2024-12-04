@@ -21,9 +21,6 @@ function AnimeCard({ anime }: Props) {
         alt={anime.images.webp.large_image_url}
       />
       <CardBody>
-        <HStack justifyContent={"space-between"}>
-          <CriticScore score={anime.score} />
-        </HStack>
         <Heading fontSize="2xl">
           <HStack>
             {/* Use Chakra UI's Link component with hover styles */}
@@ -39,6 +36,9 @@ function AnimeCard({ anime }: Props) {
         <Text>
           <strong>Status:</strong> {anime.status}
         </Text>
+        <HStack justifyContent={"space-between"}>
+          <CriticScore score={anime.score} />
+        </HStack>
       </CardBody>
     </Card>
   );

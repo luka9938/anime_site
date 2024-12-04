@@ -36,6 +36,24 @@ const AnimeDetails = () => {
   if (error) return <div>{error}</div>;
   if (!anime) return <div>Loading...</div>;
 
+  // Extract aired information (handle missing or incomplete data)
+  const aired = anime.aired
+    ? `${anime.aired.from} to ${anime.aired.to}`
+    : "Airing dates not available";
+
+  // Extract background information (handle missing or incomplete data)
+  const background = anime.background || "Background not available";
+
+  // Extract season information (handle missing or incomplete data)
+  const season = anime.season || "Season information not available";
+
+  // Extract themes (handle missing or incomplete data)
+  const themes = anime.themes?.map((theme: any) => theme.name).join(", ") || "Themes not available";
+
+  // Extract demographics (handle missing or incomplete data)
+  const demographics =
+    anime.demographics?.map((demo: any) => demo.name).join(", ") || "Demographics not available";
+
   return (
     <div className="animedetailsContainer">
       <button onClick={() => navigate("/")} className="button-50">
@@ -60,11 +78,22 @@ const AnimeDetails = () => {
         <strong>Year:</strong> {anime.year}
       </p>
       <p className="animedetailsP">
+        <strong>Status:</strong> {anime.status}
+      </p>
+      <p className="animedetailsP">
         <strong>Episodes:</strong> {anime.episodes}
       </p>
-
+      <p className="animedetailsP">
+        <strong>Themes:</strong> {themes}
+      </p>
+      <p className="animedetailsP">
+        <strong>Demographics:</strong> {demographics}
+      </p>
       <p className="animedetailsP">
         <strong>Synopsis:</strong> {anime.synopsis}
+      </p>
+      <p className="animedetailsP">
+        <strong>Background:</strong> {background}
       </p>
 
       <a className="animedetailsA" href={anime.url} target="_blank" rel="noopener noreferrer">
