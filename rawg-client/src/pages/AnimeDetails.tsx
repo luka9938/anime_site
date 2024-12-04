@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import axios from "axios";
-import "./AnimeDetails.css";
-import AnimeTrailer from "./AnimeTrailer";
-import DetailItem from "./DetailItem";
+import "../components/AnimeDetails.css";
+import AnimeTrailer from "../components/AnimeTrailer";
+import DetailItem from "../components/DetailItem";
 
 const AnimeDetails = () => {
   const { id } = useParams<{ id: string }>();

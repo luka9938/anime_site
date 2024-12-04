@@ -8,7 +8,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { BrowserRouter, Routes, Route } from "react-router"; // Update to "react-router-dom"
 import Layout from "./pages/Layout";
 import HomePage from "./pages/HomePage";
-import AnimeDetails from "./components/AnimeDetails"; // Import AnimeDetails page
+import AnimeDetails from "./pages/AnimeDetails"; // Import AnimeDetails page
 
 const queryClient = new QueryClient();
 
