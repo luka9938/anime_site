@@ -3,14 +3,14 @@ import logo from "../assets/logo.webp";
 import ColorModeSwitch from "./ColorMode";
 import SearchInput from "./SearchInput";
 import { Link } from "react-router";
-import useGameQueryStore from "../store";
+import useAnimeQueryStore from "../store";
 
 const NavBar = () => {
-  const resetGameQuery = useGameQueryStore((state) => state.reset);
+  const resetAnimeQuery = useAnimeQueryStore((state) => state.reset);
 
   return (
     <HStack justifyContent="space-between" padding={3}>
-      <Link to="/" onClick={resetGameQuery}>
+      <Link to="/" onClick={resetAnimeQuery}>
         <Image src={logo} boxSize="60px" objectFit="cover"></Image>
       </Link>
       <SearchInput />

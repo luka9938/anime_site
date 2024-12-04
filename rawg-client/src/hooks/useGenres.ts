@@ -1,18 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
-import { Response } from "../services/api_client";
-import genres from "../data/genres";
-import ApiClient from "../services/api_client";
-import ms from "ms";
+import axios from "axios";
 import { Genre } from "../entities/Genre";
 
-const apiClient = new ApiClient<Genre>("/genres");
+const fetchGenres = async (): Promise<Genre[]> => {
+  const response = await axios.get("https://api.jikan.moe/v4/genres/anime");
+  return response.data.data; // Adjusted to match API's structure
+};
 
-const useGenres = () =>
-  useQuery<Response<Genre>, Error>({
-    queryKey: ["genres"],
-    queryFn: () => apiClient.getAll(),
-    staleTime: ms("24h"),
-    initialData: { count: genres.length, results: genres },
+const useGenres = () => {
+  return useQuery<Genre[], Error>(["genres"], fetchGenres, {
+    staleTime: 1000 * 60 * 60, // 1 hour
   });
+};
 
 export default useGenres;

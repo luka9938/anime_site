@@ -1,6 +1,6 @@
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { Menu, MenuButton, Button, MenuList, MenuItem } from "@chakra-ui/react";
-import useGameQueryStore from "../store";
+import useAnimeQueryStore from "../store";
 
 const SortSelector = () => {
   const sortOrders = [
@@ -8,12 +8,12 @@ const SortSelector = () => {
     { label: "Release Date", value: "-released" },
     { label: "Average Rating", value: "-rating" },
     { label: "Name", value: "name" },
-    { label: "Popularity", value: "-metacritic" },
+    { label: "Popularity", value: "-popularity" },
     { label: "Date Added", value: "-added" },
   ];
 
-  const sortOrder = useGameQueryStore((state) => state.gameQuery.sortOrder);
-  const setSortOrder = useGameQueryStore((state) => state.setSortOrder);
+  const sortOrder = useAnimeQueryStore((state) => state.animeQuery.sortOrder);
+  const setSortOrder = useAnimeQueryStore((state) => state.setSortOrder);
 
   const selectedSortOrder = sortOrders.find(
     (order) => order.value === sortOrder

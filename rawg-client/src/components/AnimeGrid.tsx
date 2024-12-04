@@ -1,4 +1,3 @@
-// components/AnimeGrid.tsx
 import React from "react";
 import { SimpleGrid, Spinner } from "@chakra-ui/react";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -7,9 +6,8 @@ import AnimeCard from "./AnimeCard";
 import AnimeCardSkeleton from "./AnimeCardSkeleton";
 
 const AnimeGrid = () => {
-  const { data, isLoading, fetchNextPage, hasNextPage } = useAnimes({
-    searchText: "Cowboy Bebop", // Example query (can be dynamic)
-  });
+  // Fetch anime data based on the current filters
+  const { data, isLoading, fetchNextPage, hasNextPage } = useAnimes();
 
   const fetchedAnimeCount =
     data?.pages.reduce((acc, page) => acc + page.data.length, 0) ?? 0;
@@ -18,10 +16,14 @@ const AnimeGrid = () => {
     <InfiniteScroll
       dataLength={fetchedAnimeCount}
       next={fetchNextPage}
-      hasMore={!!hasNextPage}
+      hasMore={hasNextPage ?? false}
       loader={<Spinner />}
     >
-      <SimpleGrid columns={{ sm: 1, md: 2, lg: 3, xl: 4 }} spacing={4}>
+      <SimpleGrid
+        columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
+        spacing={3}
+        padding={2}
+      >
         {isLoading &&
           [...Array(20).keys()].map((key) => <AnimeCardSkeleton key={key} />)}
         {data?.pages.map((page, index) => (

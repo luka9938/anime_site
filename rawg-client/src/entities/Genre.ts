@@ -1,6 +1,6 @@
 export interface Genre {
-  id: number;
+  mal_id: number;
   name: string;
-  slug: string;
-  image_background: string;
+  type: string;
+  url: string;
 }
