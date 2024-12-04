@@ -1,26 +1,64 @@
-h1 {
-  font-size: 2rem;
+/* Centering h1 and img */
+.animedetailsh1 {
+  font-size: 5rem;
   color: #333;
+  margin-bottom: 20px;
+  text-align: center; /* Centers the text */
 }
 
-img {
-  width: 50%;
+.animedetailsimg {
+  width: 30%; /* Adjust size as needed */
   border-radius: 10px;
   margin-bottom: 20px;
+  display: block; /* Ensures the image is treated as a block element */
+  margin-left: auto; /* Centers the image horizontally */
+  margin-right: auto; /* Centers the image horizontally */
 }
 
-p {
+/* The rest of the content */
+.animedetailsP {
   font-size: 1.1rem;
   color: #555;
   line-height: 1.6;
+  margin: 5px;
 }
 
-a {
+.animedetailsA {
   color: #007bff;
   font-weight: bold;
   text-decoration: none;
 }
 
-a:hover {
+.animedetailsA:hover {
   text-decoration: underline;
+}
+
+.animedetailsButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+.animedetailsButton:hover {
+  background-color: #0056b3;
+}
+
+/* Add to AnimeDetails.css */
+.backButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+
+.backButton:hover {
+  background-color: #0056b3;
 }
