@@ -1,5 +1,5 @@
 import useAnimeTrailer from "../hooks/useAnimeTrailer";
-import "./AnimeTrailer.css";
+import "../AnimeTrailer.css";
 
 interface Props {
   animeId: string;
@@ -17,7 +17,9 @@ const AnimeTrailer = ({ animeId }: Props) => {
         width="1120"
         height="630"
         // Ensure autoplay=0 is included in the URL to disable autoplay
-        src={`${trailer.data.max ? trailer.data.max : trailer.data[480]}?autoplay=0`}
+        src={`${
+          trailer.data.max ? trailer.data.max : trailer.data[480]
+        }?autoplay=0`}
         title={trailer.name}
         frameBorder="0"
         allow="fullscreen"

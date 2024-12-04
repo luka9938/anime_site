@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
-import axios from "axios";
-import "../components/AnimeDetails.css";
+import ApiClient from "../services/api_client";
+import "../AnimeDetails.css";
 import AnimeTrailer from "../components/AnimeTrailer";
 import DetailItem from "../components/DetailItem";
 

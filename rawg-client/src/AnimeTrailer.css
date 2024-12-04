@@ -1,0 +1,10 @@
+.trailerSection {
+  margin-top: 30px;
+  font-size: 5rem;
+  color: #333;
+}
+
+.trailerSection iframe {
+  width: 100%; /* Makes the iframe take full width of its container */
+  max-width: 1120px; /* Limits the width to 1120px */
+}
