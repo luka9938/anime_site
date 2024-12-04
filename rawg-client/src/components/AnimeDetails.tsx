@@ -7,7 +7,8 @@ const AnimeDetails = () => {
   const { id } = useParams<{ id: string }>();
   const [anime, setAnime] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
-  const navigate = useNavigate(); // Initialize the navigate hook
+  const navigate = useNavigate();
+  const [trailer, setTrailer] = useState<string | null>(null);
 
   useEffect(() => {
     if (id) {
@@ -15,6 +16,14 @@ const AnimeDetails = () => {
         .get(`https://api.jikan.moe/v4/anime/${id}`)
         .then((response) => {
           setAnime(response.data.data);
+          const youtubeUrl = response.data.data.trailer?.url;
+          if (youtubeUrl) {
+            // Extract the YouTube video ID from the URL
+            const videoId = youtubeUrl.split("v=")[1].split("&")[0];
+            setTrailer(`https://www.youtube.com/embed/${videoId}`); // Embed format URL
+          } else {
+            setTrailer(null); // No trailer available
+          }
           setError(null);
         })
         .catch((error) => {
@@ -29,7 +38,6 @@ const AnimeDetails = () => {
 
   return (
     <div className="animedetailsContainer">
-      {/* Back Button */}
       <button onClick={() => navigate("/")} className="backButton">
         Back to Homepage
       </button>
@@ -54,9 +62,33 @@ const AnimeDetails = () => {
       <p className="animedetailsP">
         <strong>Synopsis:</strong> {anime.synopsis}
       </p>
+
       <a className="animedetailsA" href={anime.url} target="_blank" rel="noopener noreferrer">
         <button className="animedetailsButton">More Info</button>
       </a>
+
+      {/* Trailer Section */}
+      {trailer ? (
+        <div className="trailerSection">
+          <h3>Trailer</h3>
+          <iframe
+            width="1120"
+            height="630"
+            src={trailer} // YouTube embed URL
+            title="Anime Trailer"
+            frameBorder="0"
+            allow="fullscreen"
+            allowFullScreen
+          ></iframe>
+        </div>
+      ) : (
+        <div className="trailerSection">
+          <h3>Trailer</h3>
+          <div className="placeholder">
+            <p>No trailer available</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

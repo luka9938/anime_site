@@ -11,9 +11,7 @@ class ApiClient {
     this.endpoint = endpoint;
   }
   getAll = (config?: AxiosRequestConfig) =>
-    axiosInstance
-      .get<AnimeApiResponse>(this.endpoint, config)
-      .then((response) => response.data);
+    axiosInstance.get<AnimeApiResponse>(this.endpoint, config).then((response) => response.data);
 }
 
 export default ApiClient;
