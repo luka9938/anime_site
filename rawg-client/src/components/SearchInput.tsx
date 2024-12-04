@@ -22,12 +22,7 @@ const SearchInput = () => {
     >
       <InputGroup>
         <InputLeftElement children={<SearchIcon />} />
-        <Input
-          ref={ref}
-          borderRadius={20}
-          placeholder="Search games..."
-          variant="filled"
-        />
+        <Input ref={ref} borderRadius={20} placeholder="Search Anime..." variant="filled" />
       </InputGroup>
     </form>
   );
