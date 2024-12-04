@@ -1,26 +1,24 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
-import axios from "axios";
+import ApiClient from "../services/api_client";
 import "./AnimeDetails.css";
 import AnimeTrailer from "./AnimeTrailer";
 import DetailItem from "./DetailItem";
+
+const animeApiClient = new ApiClient("anime");
 
 const AnimeDetails = () => {
   const { id } = useParams<{ id: string }>();
   const [anime, setAnime] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
-  const themes =
-    anime?.themes?.map((theme: any) => theme.name).join(", ") || "Themes not available";
-  const demographics =
-    anime?.demographics?.map((demo: any) => demo.name).join(", ") || "Demographics not available";
 
   useEffect(() => {
     if (id) {
-      axios
-        .get(`https://api.jikan.moe/v4/anime/${id}`)
-        .then((response) => {
-          setAnime(response.data.data);
+      animeApiClient
+        .get(id)
+        .then((data) => {
+          setAnime(data.data);
           setError(null);
         })
         .catch((error) => {
@@ -33,6 +31,13 @@ const AnimeDetails = () => {
   if (error) return <div>{error}</div>;
   if (!anime) return <div>Loading...</div>;
 
+  const themes =
+    anime?.themes?.map((theme: any) => theme.name).join(", ") ||
+    "Themes not available";
+  const demographics =
+    anime?.demographics?.map((demo: any) => demo.name).join(", ") ||
+    "Demographics not available";
+
   return (
     <div className="animedetailsContainer">
       <button onClick={() => navigate("/")} className="button-50">
@@ -40,11 +45,18 @@ const AnimeDetails = () => {
       </button>
 
       <h1 className="animedetailsh1">{anime.title}</h1>
-      <img className="animedetailsimg" src={anime.images.jpg.large_image_url} alt={anime.title} />
+      <img
+        className="animedetailsimg"
+        src={anime.images.jpg.large_image_url}
+        alt={anime.title}
+      />
       <DetailItem label="English Title" value={anime.title_english} />
       <DetailItem label="Japanese Title" value={anime.title_japanese} />
       <DetailItem label="Rating" value={anime.rating} />
-      <DetailItem label="Genres" value={anime.genres.map((genre: any) => genre.name).join(", ")} />
+      <DetailItem
+        label="Genres"
+        value={anime.genres.map((genre: any) => genre.name).join(", ")}
+      />
       <DetailItem label="Year" value={anime.year} />
       <DetailItem label="Type" value={anime.type} />
       <DetailItem label="Episodes" value={anime.episodes} />
@@ -53,7 +65,12 @@ const AnimeDetails = () => {
       <DetailItem label="Synopsis" value={anime.synopsis} />
       <DetailItem label="Background" value={anime.background} />
 
-      <a className="animedetailsA" href={anime.url} target="_blank" rel="noopener noreferrer">
+      <a
+        className="animedetailsA"
+        href={anime.url}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <button className="button-50">More Info</button>
       </a>
 

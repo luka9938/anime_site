@@ -7,11 +7,20 @@ const axiosInstance = axios.create({
 
 class ApiClient {
   endpoint: string;
+
   constructor(endpoint: string) {
     this.endpoint = endpoint;
   }
+
   getAll = (config?: AxiosRequestConfig) =>
-    axiosInstance.get<AnimeApiResponse>(this.endpoint, config).then((response) => response.data);
+    axiosInstance
+      .get<AnimeApiResponse>(this.endpoint, config)
+      .then((response) => response.data);
+
+  get = (id: string) =>
+    axiosInstance
+      .get<{ data: any }>(`${this.endpoint}/${id}`)
+      .then((response) => response.data);
 }
 
 export default ApiClient;
