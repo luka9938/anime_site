@@ -10,7 +10,7 @@ const RatingList = () => {
 
   return (
     <>
-      <Heading fontSize="2xl" marginBottom={4}>
+      <Heading fontSize="2xl" marginBottom={4} marginTop={20}>
         Ratings
       </Heading>
       <List spacing={3}>

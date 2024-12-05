@@ -1,5 +1,5 @@
 import express from "express";
-import gameRouter from "../routers/gameMysqlRouter";
+import gameRouter from "../routers/animeMysqlRouter";
 import genreRouter from "../routers/genreMysqlRouter";
 import storeRouter from "../routers/ratingMysqlRouter";
 import platformRouter from "../routers/parent_platformMysqlRoute";
