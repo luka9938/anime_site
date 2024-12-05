@@ -32,33 +32,29 @@
 }
 
 .button-62 {
-  background: linear-gradient(to bottom right, #ef4765, #ff9a5a);
-  border: 0;
-  border-radius: 12px;
-  color: #ffffff;
+  border-radius: 8px;
+  border-width: 0;
+  border: solid 1px var(--button-border-color); /* Set border color dynamically */
   cursor: pointer;
   display: inline-block;
-  font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
-  line-height: 2.5;
-  outline: transparent;
-  padding: 0 1rem;
+  line-height: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 10px 12px;
   text-align: center;
-  text-decoration: none;
-  transition: box-shadow 0.2s ease-in-out;
+  transition: all 200ms; /* Smooth transition */
+  vertical-align: baseline;
+  white-space: nowrap;
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  white-space: nowrap;
+  background-color: var(--button-bg-color); /* Set button background color dynamically */
 }
 
-.button-62:not([disabled]):focus {
-  box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5), -0.125rem -0.125rem 1rem rgba(239, 71, 101, 0.5),
-    0.125rem 0.125rem 1rem rgba(255, 154, 90, 0.5);
-}
-
-.button-62:not([disabled]):hover {
-  box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5), -0.125rem -0.125rem 1rem rgba(239, 71, 101, 0.5),
-    0.125rem 0.125rem 1rem rgba(255, 154, 90, 0.5);
+/* Hover effect */
+.button-62:hover {
+  background-color: var(--button-hover-bg-color); /* Set hover background color */
+  border-color: var(--button-hover-border-color); /* Set hover border color */
 }
