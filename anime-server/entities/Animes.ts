@@ -1,4 +1,10 @@
-import { Column, Entity, PrimaryGeneratedColumn, ManyToMany, JoinTable } from "typeorm";
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  ManyToMany,
+  JoinTable,
+} from "typeorm";
 
 // Assuming `Genre` is related to anime genres
 import { Genre } from "./Genres";
@@ -7,7 +13,7 @@ import { Genre } from "./Genres";
 
 @Entity("anime", { schema: "anime_database" })
 export class Anime {
-  @PrimaryGeneratedColumn({ type: "int", name: "id" })
+  @PrimaryGeneratedColumn({ type: "int", name: "mal_id" })
   id!: number;
 
   @Column("varchar", { name: "title", length: 255 })
@@ -37,6 +43,9 @@ export class Anime {
   @Column("int", { name: "score" })
   score!: number;
 
+  @Column("int", { name: "popularity" })
+  popularity!: number;
+
   @Column("text", { name: "synopsis", nullable: true })
   synopsis!: string | null;
 
@@ -48,6 +57,9 @@ export class Anime {
 
   @Column("int", { name: "year", nullable: true })
   year!: number | null;
+
+  @Column("date", { name: "aired_from", nullable: true })
+  aired_from!: Date | null;
 
   @ManyToMany(() => Genre, (genre) => genre.animes)
   @JoinTable({
