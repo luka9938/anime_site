@@ -1,23 +1,28 @@
 import { Router } from "express";
-import { Store } from "../entities/Rating";
+import { rating } from "../entities/Rating";
 import { AppDataSource } from "../startup/data-source";
 
 interface Response {
   count: number;
-  results: Store[];
+  results: rating[];
 }
 
-const storeRouter = Router();
-const storesRepository = AppDataSource.getRepository(Store);
+const ratingRouter = Router();
+const ratingsRepository = AppDataSource.getRepository(rating);
 
-// Get all stores
-storeRouter.get("/", async (req, res) => {
-  const stores = await storesRepository.find();
-  const response: Response = {
-    count: stores.length,
-    results: stores,
-  };
-  res.send(response);
+// Get all ratings
+ratingRouter.get("/", async (req, res) => {
+  try {
+    const ratings = await ratingsRepository.find();
+    const response: Response = {
+      count: ratings.length,
+      results: ratings,
+    };
+    res.send(response);
+  } catch (error) {
+    console.error("Error fetching ratings:", error);
+    res.status(500).send({ error: "Failed to fetch ratings." });
+  }
 });
 
-export default storeRouter;
+export default ratingRouter;
