@@ -2,8 +2,6 @@ import { Router } from "express";
 import { Anime } from "../entities/Animes";
 import { AppDataSource } from "../startup/data-source";
 import { Genre } from "../entities/Genres";
-import { type } from "../entities/type";
-import { rating } from "../entities/Rating";
 
 interface ModifiedAnime {
   id: number;
