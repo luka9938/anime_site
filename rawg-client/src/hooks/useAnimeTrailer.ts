@@ -15,7 +15,7 @@ const useAnimeTrailer = (animeId: string | undefined) => {
           if (trailerData) {
             setTrailer({
               id: parseInt(animeId),
-              name: trailerData.title || "Unknown Trailer",
+              name: trailerData.title || "Trailer not available",
               preview: trailerData.images?.medium || "",
               data: {
                 480: trailerData.url || "",
