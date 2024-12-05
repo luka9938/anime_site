@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { Store } from "../entities/Stores";
+import { Store } from "../entities/Rating";
 import { AppDataSource } from "../startup/data-source";
 
 interface Response {

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { ParentPlatform } from "../entities/ParentPlatforms";
+import { ParentPlatform } from "../entities/type";
 import { AppDataSource } from "../startup/data-source";
 
 interface Response {

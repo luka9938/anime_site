@@ -1,5 +1,5 @@
 import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Anime } from "./Games";
+import { Anime } from "./Animes";
 
 @Entity("genres", { schema: "anime_database" })
 export class Genre {

@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { Game } from "../entities/Games";
+import { Game } from "../entities/Animes";
 import { AppDataSource } from "../startup/data-source";
-import { ParentPlatform } from "../entities/ParentPlatforms";
+import { ParentPlatform } from "../entities/type";
 import { Genre } from "../entities/Genres";
-import { Store } from "../entities/Stores";
+import { Store } from "../entities/Rating";
 
 interface ModifinedGame {
   id: number;
