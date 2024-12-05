@@ -11,7 +11,7 @@ import { Genre } from "./Genres";
 
 // You can define the Anime entity based on your provided Anime interface
 
-@Entity("anime", { schema: "anime_database" })
+@Entity("anime", { schema: "animedatabase" })
 export class Anime {
   @PrimaryGeneratedColumn({ type: "int", name: "mal_id" })
   id!: number;
@@ -66,7 +66,7 @@ export class Anime {
     name: "anime_genres",
     joinColumns: [{ name: "anime_id", referencedColumnName: "id" }],
     inverseJoinColumns: [{ name: "genre_id", referencedColumnName: "id" }],
-    schema: "anime_database",
+    schema: "animedatabase",
   })
   genres!: Genre[];
 
