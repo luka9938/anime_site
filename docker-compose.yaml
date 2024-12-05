@@ -1,9 +1,7 @@
-version: "3.8"
-
 services:
-  mysql:
+  anime-mysql:
     image: mysql:8.0.39
-    container_name: mysql
+    container_name: anime-mysql
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
     networks:
@@ -13,36 +11,36 @@ services:
     ports:
       - "3307:3306"
 
-  rawg-server:
-    container_name: rawg-server
+  anime-server:
+    container_name: anime-server
     build:
-      context: ./rawg-server
+      context: ./anime-server
       dockerfile: Dockerfile
     environment:
-      MYSQL_URL: mysql://root:rootpassword@mysql:3306/rawgDatabase
+      MYSQL_URL: mysql://root:rootpassword@anime-mysql:3306/animeDatabase
     networks:
       - frontend
       - backend
     ports:
       - "5001:5001"
     depends_on:
-      - mysql
+      - anime-mysql
     volumes:
-      - ./rawg-server:/app
+      - ./anime-server:/app
 
-  rawg-client:
-    container_name: rawg-client
+  anime-client:
+    container_name: anime-client
     build:
-      context: ./rawg-client
+      context: ./anime-client
       dockerfile: Dockerfile
     environment:
       VITE_API_URL: http://localhost:5001
       CHOKIDAR_USEPOLLING: true
     volumes:
-      - ./rawg-client:/app
+      - ./anime-client:/app
       - /app/node_modules
     depends_on:
-      - rawg-server
+      - anime-server
     ports:
       - "3000:3000"
     networks:
