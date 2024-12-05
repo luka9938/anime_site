@@ -1,63 +1,74 @@
-import {
-  Column,
-  Entity,
-  JoinTable,
-  ManyToMany,
-  PrimaryGeneratedColumn,
-} from "typeorm";
-import { Genre } from "./Genres";
-import { ParentPlatform } from "./ParentPlatforms";
-import { Store } from "./Stores";
+import { Column, Entity, PrimaryGeneratedColumn, ManyToMany, JoinTable } from "typeorm";
 
-@Entity("games", { schema: "rawgdatabase" })
-export class Game {
+// Assuming `Genre` is related to anime genres
+import { Genre } from "./Genres";
+
+// You can define the Anime entity based on your provided Anime interface
+
+@Entity("anime", { schema: "anime_database" })
+export class Anime {
   @PrimaryGeneratedColumn({ type: "int", name: "id" })
   id!: number;
 
-  @Column("varchar", { name: "name", length: 255 })
-  name!: string;
+  @Column("varchar", { name: "title", length: 255 })
+  title!: string;
 
-  @Column("varchar", { name: "background_image", nullable: true, length: 255 })
-  background_image!: string | null;
+  @Column("varchar", { name: "title_english", nullable: true, length: 255 })
+  title_english!: string | null;
 
-  @Column("int", { name: "metacritic", nullable: true })
-  metacritic!: number | null;
+  @Column("varchar", { name: "title_japanese", nullable: true, length: 255 })
+  title_japanese!: string | null;
 
-  @Column({ type: "varchar", length: 255, nullable: true })
-  slug!: string;
+  @Column("varchar", { name: "type", length: 50 })
+  type!: string;
 
-  @Column({ type: "int", nullable: true })
-  rating_top!: number;
+  @Column("varchar", { name: "source", length: 255 })
+  source!: string;
 
-  @Column({ type: "text", nullable: true })
-  description_raw!: string;
+  @Column("int", { name: "episodes", nullable: true })
+  episodes!: number | null;
 
-  @ManyToMany(() => Genre, (genre) => genre.games)
+  @Column("varchar", { name: "status", length: 100 })
+  status!: string;
+
+  @Column("varchar", { name: "rating", length: 50 })
+  rating!: string;
+
+  @Column("int", { name: "score" })
+  score!: number;
+
+  @Column("text", { name: "synopsis", nullable: true })
+  synopsis!: string | null;
+
+  @Column("text", { name: "background", nullable: true })
+  background!: string | null;
+
+  @Column("varchar", { name: "season", length: 50, nullable: true })
+  season!: string | null;
+
+  @Column("int", { name: "year", nullable: true })
+  year!: number | null;
+
+  @ManyToMany(() => Genre, (genre) => genre.animes)
   @JoinTable({
-    name: "games_genres",
-    joinColumns: [{ name: "games_id", referencedColumnName: "id" }],
-    inverseJoinColumns: [{ name: "genres_id", referencedColumnName: "id" }],
-    schema: "rawgdatabase",
+    name: "anime_genres",
+    joinColumns: [{ name: "anime_id", referencedColumnName: "id" }],
+    inverseJoinColumns: [{ name: "genre_id", referencedColumnName: "id" }],
+    schema: "anime_database",
   })
   genres!: Genre[];
 
-  @ManyToMany(() => ParentPlatform, (parentPlatform) => parentPlatform.games)
-  @JoinTable({
-    name: "games_parent_platforms",
-    joinColumns: [{ name: "games_id", referencedColumnName: "id" }],
-    inverseJoinColumns: [
-      { name: "parent_platforms_id", referencedColumnName: "id" },
-    ],
-    schema: "rawgdatabase",
-  })
-  parent_platforms!: ParentPlatform[];
+  // Example of how to structure the trailer data
+  @Column("varchar", { name: "trailer_youtube_id", nullable: true })
+  trailer_youtube_id!: string | null;
 
-  @ManyToMany(() => Store, (store) => store.games)
-  @JoinTable({
-    name: "games_stores",
-    joinColumns: [{ name: "games_id", referencedColumnName: "id" }],
-    inverseJoinColumns: [{ name: "stores_id", referencedColumnName: "id" }],
-    schema: "rawgdatabase",
-  })
-  stores!: Store[];
+  @Column("varchar", { name: "trailer_url", nullable: true })
+  trailer_url!: string | null;
+
+  @Column("varchar", { name: "trailer_embed_url", nullable: true })
+  trailer_embed_url!: string | null;
+
+  // Trailer images
+  @Column("varchar", { name: "trailer_image_url", nullable: true })
+  trailer_image_url!: string | null;
 }
