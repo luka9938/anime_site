@@ -1,7 +1,7 @@
 import { Column, Entity, ManyToMany } from "typeorm";
-import { Game } from "./Games";
+import { Anime } from "./Games";
 
-@Entity("parent_platforms", { schema: "rawgdatabase" })
+@Entity("parent_platforms", { schema: "anime_database" })
 export class ParentPlatform {
   @Column("int", { primary: true, name: "id" })
   id!: number;
@@ -12,6 +12,6 @@ export class ParentPlatform {
   @Column("varchar", { name: "slug", length: 255 })
   slug!: string;
 
-  @ManyToMany(() => Game, (game) => game.parent_platforms)
-  games!: Game[];
+  @ManyToMany(() => Anime, (anime) => anime.parent_platforms)
+  animes!: Anime[];
 }
