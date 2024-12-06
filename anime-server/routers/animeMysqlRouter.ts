@@ -15,6 +15,7 @@ interface ModifiedAnime {
   airing: string | null;
   rating: string;
   score: number;
+  popularity: number;
   synopsis: string | null;
   background: string | null;
   season: string | null;
@@ -22,12 +23,6 @@ interface ModifiedAnime {
   aired_from: Date | null;
   image_url: string | null;
   genres: Genre[];
-  trailer: {
-    youtube_id: string | null;
-    url: string | null;
-    embed_url: string | null;
-    image_url: string | null;
-  };
 }
 
 interface Response {
@@ -77,6 +72,7 @@ animeRouter.get("/", async (req, res) => {
       airing: anime.airing,
       rating: anime.rating,
       score: anime.score,
+      popularity: anime.popularity,
       synopsis: anime.synopsis,
       background: anime.background,
       season: anime.season,
@@ -84,12 +80,6 @@ animeRouter.get("/", async (req, res) => {
       aired_from: anime.aired_from,
       image_url: anime.image_url,
       genres: anime.genres,
-      trailer: {
-        youtube_id: anime.trailer_youtube_id,
-        url: anime.trailer_url,
-        embed_url: anime.trailer_embed_url,
-        image_url: anime.trailer_image_url,
-      },
     }));
 
     const response: Response = {
@@ -129,6 +119,7 @@ animeRouter.get("/:id", async (req, res) => {
       airing: anime.airing,
       rating: anime.rating,
       score: anime.score,
+      popularity: anime.popularity,
       synopsis: anime.synopsis,
       background: anime.background,
       season: anime.season,
@@ -136,12 +127,6 @@ animeRouter.get("/:id", async (req, res) => {
       aired_from: anime.aired_from,
       image_url: anime.image_url,
       genres: anime.genres,
-      trailer: {
-        youtube_id: anime.trailer_youtube_id,
-        url: anime.trailer_url,
-        embed_url: anime.trailer_embed_url,
-        image_url: anime.trailer_image_url,
-      },
     };
 
     res.status(200).send(modifiedAnime);

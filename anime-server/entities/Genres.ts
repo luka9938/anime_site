@@ -1,9 +1,9 @@
 import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Anime } from "./Animes";
 
-@Entity("genres", { schema: "animedatabase" })
+@Entity("genres", { schema: "animeDatabase" })
 export class Genre {
-  @PrimaryGeneratedColumn({ type: "int", name: "mal_id" })
+  @PrimaryGeneratedColumn({ type: "int", name: "id" })
   id!: number;
 
   @Column("varchar", { name: "name", length: 255 })

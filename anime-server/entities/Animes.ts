@@ -11,9 +11,9 @@ import { Genre } from "./Genres";
 
 // You can define the Anime entity based on your provided Anime interface
 
-@Entity("anime", { schema: "animedatabase" })
+@Entity("anime", { schema: "animeDatabase" })
 export class Anime {
-  @PrimaryGeneratedColumn({ type: "int", name: "mal_id" })
+  @PrimaryGeneratedColumn({ type: "int", name: "id" })
   id!: number;
 
   @Column("varchar", { name: "title", length: 255 })
@@ -72,21 +72,7 @@ export class Anime {
     name: "anime_genres",
     joinColumns: [{ name: "anime_id", referencedColumnName: "id" }],
     inverseJoinColumns: [{ name: "genre_id", referencedColumnName: "id" }],
-    schema: "animedatabase",
+    schema: "animeDatabase",
   })
   genres!: Genre[];
-
-  // Example of how to structure the trailer data
-  @Column("varchar", { name: "trailer_youtube_id", nullable: true })
-  trailer_youtube_id!: string | null;
-
-  @Column("varchar", { name: "trailer_url", nullable: true })
-  trailer_url!: string | null;
-
-  @Column("varchar", { name: "trailer_embed_url", nullable: true })
-  trailer_embed_url!: string | null;
-
-  // Trailer images
-  @Column("varchar", { name: "trailer_image_url", nullable: true })
-  trailer_image_url!: string | null;
 }
