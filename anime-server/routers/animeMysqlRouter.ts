@@ -12,6 +12,7 @@ interface ModifiedAnime {
   source: string;
   episodes: number | null;
   status: string;
+  airing: string | null;
   rating: string;
   score: number;
   synopsis: string | null;
@@ -19,6 +20,7 @@ interface ModifiedAnime {
   season: string | null;
   year: number | null;
   aired_from: Date | null;
+  image_url: string | null;
   genres: Genre[];
   trailer: {
     youtube_id: string | null;
@@ -72,6 +74,7 @@ animeRouter.get("/", async (req, res) => {
       source: anime.source,
       episodes: anime.episodes,
       status: anime.status,
+      airing: anime.airing,
       rating: anime.rating,
       score: anime.score,
       synopsis: anime.synopsis,
@@ -79,6 +82,7 @@ animeRouter.get("/", async (req, res) => {
       season: anime.season,
       year: anime.year,
       aired_from: anime.aired_from,
+      image_url: anime.image_url,
       genres: anime.genres,
       trailer: {
         youtube_id: anime.trailer_youtube_id,
@@ -122,6 +126,7 @@ animeRouter.get("/:id", async (req, res) => {
       source: anime.source,
       episodes: anime.episodes,
       status: anime.status,
+      airing: anime.airing,
       rating: anime.rating,
       score: anime.score,
       synopsis: anime.synopsis,
@@ -129,6 +134,7 @@ animeRouter.get("/:id", async (req, res) => {
       season: anime.season,
       year: anime.year,
       aired_from: anime.aired_from,
+      image_url: anime.image_url,
       genres: anime.genres,
       trailer: {
         youtube_id: anime.trailer_youtube_id,

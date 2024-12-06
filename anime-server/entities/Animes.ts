@@ -37,6 +37,9 @@ export class Anime {
   @Column("varchar", { name: "status", length: 100 })
   status!: string;
 
+  @Column("varchar", { name: "airing", length: 1, nullable: true })
+  airing!: string;
+
   @Column("varchar", { name: "rating", length: 50 })
   rating!: string;
 
@@ -60,6 +63,9 @@ export class Anime {
 
   @Column("date", { name: "aired_from", nullable: true })
   aired_from!: Date | null;
+
+  @Column("varchar", { name: "image_url", nullable: true, length: 255 })
+  image_url!: string | null;
 
   @ManyToMany(() => Genre, (genre) => genre.animes)
   @JoinTable({
