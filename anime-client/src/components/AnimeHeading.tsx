@@ -9,7 +9,7 @@ const AnimeHeading = () => {
 
   // Access selected genre from Zustand store
   const genreId = useAnimeQueryStore((state) => state.animeQuery.genreId);
-  const selectedGenre = genres.find((genre) => genre.mal_id === genreId);
+  const selectedGenre = genres.find((genre) => genre.id === genreId);
 
   // Access selected type (formerly platform) from Zustand store
   const type = useAnimeQueryStore((state) => state.animeQuery.type);

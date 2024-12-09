@@ -5,10 +5,10 @@ import useAnimeQueryStore from "../store";
 const SortSelector = () => {
   const sortOrders = [
     { label: "Relevance", value: "" },
-    { label: "Release Date", value: "start_date" }, // Sort by release date
-    { label: "Highest Rated", value: "score" }, // Sort by score
-    { label: "Name", value: "title" }, // Sort by title
-    { label: "Popularity", value: "popularity" }, // Sort by popularity
+    { label: "Release Date", value: "start_date" },
+    { label: "Highest Rated", value: "score" },
+    { label: "Name", value: "title" },
+    { label: "Popularity", value: "popularity" },
   ];
 
   const sortOrder = useAnimeQueryStore((state) => state.animeQuery.sortOrder);
@@ -21,7 +21,7 @@ const SortSelector = () => {
   return (
     <Menu>
       <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-        Order by: {selectedSortOrder?.label || "Relevance"}
+        Order by: {selectedSortOrder?.label || ""}
       </MenuButton>
       <MenuList>
         {sortOrders.map((order) => (

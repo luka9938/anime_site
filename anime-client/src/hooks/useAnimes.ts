@@ -1,13 +1,15 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import ApiClient from "../services/api_client";
 import useAnimeQueryStore from "../store";
+import { Anime } from "../entities/Anime"; // Import your Anime type
+import { Response } from "../services/api_client"; // Assuming Response<T> is defined
 
-const apiClient = new ApiClient("anime");
+const apiClient = new ApiClient<Anime>("anime");
 
 const useAnimes = () => {
   const animeQuery = useAnimeQueryStore((state) => state.animeQuery);
 
-  return useInfiniteQuery(
+  return useInfiniteQuery<Response<Anime>>(
     ["animes", animeQuery],
     async ({ pageParam = 1 }) => {
       const params: Record<string, any> = {
@@ -19,35 +21,32 @@ const useAnimes = () => {
         order_by: animeQuery.sortOrder || "",
         sort:
           animeQuery.sortOrder === "popularity"
-            ? "asc" // Popularity sorted in ascending order
+            ? "asc"
             : animeQuery.sortOrder === "start_date"
             ? "desc"
             : animeQuery.sortOrder === "title"
-            ? "asc" // Release Date sorted in descending order
-            : "desc", // Default descending for other sorts
+            ? "asc"
+            : "desc",
       };
 
       const response = await apiClient.getAll({ params });
 
       // Filter out items without a score or release date
-      // Filter out items without a score
-      const filteredData =
+      const filteredResults =
         animeQuery.sortOrder === "start_date"
-          ? response.data // Do not filter when sorting by release date
-          : response.data.filter(
-              (anime) => anime.score !== null && anime.aired?.from !== null // Ensure valid score and release date for other sorts
+          ? response.results // Do not filter when sorting by release date
+          : response.results.filter(
+              (anime) => anime.score !== null && anime.aired_from !== null // Ensure valid score and release date for other sorts
             );
 
       return {
         ...response,
-        data: filteredData,
+        results: filteredResults,
       };
     },
     {
       getNextPageParam: (lastPage) =>
-        lastPage.pagination.has_next_page
-          ? lastPage.pagination.current_page + 1
-          : undefined,
+        lastPage.next ? lastPage.next : undefined,
     }
   );
 };

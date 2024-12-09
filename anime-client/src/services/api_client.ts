@@ -1,25 +1,33 @@
 import axios, { AxiosRequestConfig } from "axios";
-import { AnimeApiResponse } from "../entities/Anime";
+
+export interface Response<T> {
+  count: number;
+  results: T[];
+  next?: string;
+}
 
 const axiosInstance = axios.create({
-  baseURL: "https://api.jikan.moe/v4", // Base URL for the Jikan API
+  // baseURL: "http://localhost:5001/" for localhost
+  // baseURL: "https://api.rawg.io/api" for api
+  baseURL: import.meta.env.VITE_API_URL,
+
+  params: {
+    key: import.meta.env.VITE_API_KEY,
+  },
 });
 
-class ApiClient {
+class ApiClient<T> {
   endpoint: string;
-
   constructor(endpoint: string) {
     this.endpoint = endpoint;
   }
-
   getAll = (config?: AxiosRequestConfig) =>
     axiosInstance
-      .get<AnimeApiResponse>(this.endpoint, config)
+      .get<Response<T>>(this.endpoint, config)
       .then((response) => response.data);
-
-  get = (id: string) =>
+  get = (id: string | number) =>
     axiosInstance
-      .get<{ data: any }>(`${this.endpoint}/${id}`)
+      .get<T>(`${this.endpoint}/${id}`)
       .then((response) => response.data);
 }
 

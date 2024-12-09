@@ -23,17 +23,14 @@ function AnimeCard({ anime }: Props) {
 
   return (
     <Card width="300px">
-      <Image
-        src={anime.images.webp.large_image_url}
-        alt={anime.images.webp.large_image_url}
-      />
+      <Image src={anime.image_url} alt={anime.image_url} />
       <CardBody>
         <Heading fontSize="2xl">
           <HStack>
             {/* Use Chakra UI's Link component with hover styles */}
             <Link
               as={RouterLink}
-              to={`/anime/${anime.mal_id}`}
+              to={`/anime/${anime.id}`}
               _hover={{ textDecoration: "underline", color: "blue.500" }} // Add hover effect here
             >
               {anime.title}

@@ -1,5 +1,5 @@
 export interface Genre {
-  mal_id: number;
+  id: number;
   name: string;
   type: string;
   url: string;
