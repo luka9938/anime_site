@@ -1,37 +1,35 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
-import { Trailer } from "../entities/Trailer";
+import ApiClient from "../services/api_client"; // Ensure this client is implemented correctly
 
-const useAnimeTrailer = (animeId: string | undefined) => {
-  const [trailer, setTrailer] = useState<Trailer | null>(null);
+interface TrailerData {
+  url: string;
+  trailer_youtube_id: string | null;
+  trailer_url: string | null;
+  trailer_embed_url: string | null;
+  trailer_image_url: string | null;
+}
+
+const useAnimeTrailer = (animeId: string) => {
+  const [trailer, setTrailer] = useState<TrailerData | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (animeId) {
-      axios
-        .get(`https://api.jikan.moe/v4/anime/${animeId}`)
-        .then((response) => {
-          const trailerData = response.data.data.trailer;
-          if (trailerData) {
-            setTrailer({
-              id: parseInt(animeId),
-              name: trailerData.title || "Trailer not available",
-              preview: trailerData.images?.medium || "",
-              data: {
-                480: trailerData.url || "",
-                max: trailerData.embed_url || "",
-              },
-            });
-          } else {
-            setTrailer(null);
-          }
-          setError(null);
-        })
-        .catch((error) => {
-          console.error(error);
-          setError("Failed to fetch anime trailer.");
-        });
-    }
+    const apiClient = new ApiClient<TrailerData>("anime");
+
+    const fetchTrailer = async () => {
+      try {
+        const data = await apiClient.get(animeId);
+        if (data.trailer_youtube_id && data.trailer_embed_url) {
+          setTrailer(data);
+        } else {
+          setError("Trailer not available for this anime.");
+        }
+      } catch (err) {
+        setError("Failed to fetch anime trailer data.");
+      }
+    };
+
+    fetchTrailer();
   }, [animeId]);
 
   return { trailer, error };

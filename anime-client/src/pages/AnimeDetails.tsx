@@ -4,6 +4,7 @@ import ApiClient from "../services/api_client";
 import "../AnimeDetails.css";
 import DetailItem from "../components/DetailItem";
 import { Anime } from "../entities/Anime"; // Assuming you have an Anime type defined
+import AnimeTrailer from "../components/AnimeTrailer";
 
 const animeApiClient = new ApiClient<Anime>("anime");
 
@@ -70,6 +71,8 @@ const AnimeDetails = () => {
       >
         <button className="button-62">More Info</button>
       </a>
+      {/* Conditionally render AnimeTrailer only if there is a trailer available */}
+      {anime.trailer_url && <AnimeTrailer animeId={id!} />}
     </div>
   );
 };

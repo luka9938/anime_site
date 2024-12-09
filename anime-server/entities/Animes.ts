@@ -80,7 +80,7 @@ export class Anime {
   @Column("varchar", { name: "trailer_url", nullable: true, length: 255 })
   trailer_url!: string | null;
 
-  @Column("varchar", { name: "image_embed_url", nullable: true, length: 255 })
+  @Column("varchar", { name: "trailer_embed_url", nullable: true, length: 255 })
   trailer_embed_url!: string | null;
 
   @Column("varchar", { name: "trailer_image_url", nullable: true, length: 255 })
