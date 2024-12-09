@@ -3,8 +3,10 @@ import useAnimeQueryStore from "../store";
 import useRating from "../hooks/useRating";
 
 const RatingList = () => {
+  // Get the static list of ratings from useRating
   const { ratings } = useRating();
 
+  // Zustand store for managing selected rating
   const selectedRating = useAnimeQueryStore((state) => state.animeQuery.rating);
   const setSelectedRating = useAnimeQueryStore((state) => state.setRating);
 
