@@ -2,15 +2,15 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import ApiClient from "../services/api_client";
 import "../AnimeDetails.css";
-import AnimeTrailer from "../components/AnimeTrailer";
 import DetailItem from "../components/DetailItem";
+import { Anime } from "../entities/Anime"; // Assuming you have an Anime type defined
 
-const animeApiClient = new ApiClient("anime");
+const animeApiClient = new ApiClient<Anime>("anime");
 
 const AnimeDetails = () => {
-  const { id } = useParams<{ id: string }>();
-  const [anime, setAnime] = useState<any>(null);
-  const [error, setError] = useState<string | null>(null);
+  const { id } = useParams<{ id: string }>(); // Get the anime ID from the URL params
+  const [anime, setAnime] = useState<Anime | null>(null); // Use the Anime type for type safety
+  const [error, setError] = useState<string | null>(null); // State to handle errors
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,23 +18,18 @@ const AnimeDetails = () => {
       animeApiClient
         .get(id)
         .then((data) => {
-          setAnime(data.data);
+          setAnime(data);
           setError(null);
         })
-        .catch((error) => {
-          console.error(error);
+        .catch((err) => {
+          console.error(err);
           setError("Failed to fetch anime details. Please try again later.");
         });
     }
   }, [id]);
 
-  if (error) return <div>{error}</div>;
-  if (!anime) return <div>Loading...</div>;
-
-  const themes =
-    anime?.themes?.map((theme: any) => theme.name).join(", ") || "Themes not available";
-  const demographics =
-    anime?.demographics?.map((demo: any) => demo.name).join(", ") || "Demographics not available";
+  if (error) return <div>{error}</div>; // Display error message if an error occurs
+  if (!anime) return <div>Loading...</div>; // Display a loading message while fetching data
 
   return (
     <div className="animedetailsContainer">
@@ -43,25 +38,38 @@ const AnimeDetails = () => {
       </button>
 
       <h1 className="animedetailsh1">{anime.title}</h1>
-      <img className="animedetailsimg" src={anime.images.jpg.large_image_url} alt={anime.title} />
-      <DetailItem label="English Title" value={anime.title_english} />
-      <DetailItem label="Japanese Title" value={anime.title_japanese} />
-      <DetailItem label="Rating" value={anime.rating} />
-      <DetailItem label="Genres" value={anime.genres.map((genre: any) => genre.name).join(", ")} />
-      <DetailItem label="Year" value={anime.year} />
-      <DetailItem label="Type" value={anime.type} />
-      <DetailItem label="Episodes" value={anime.episodes} />
-      <DetailItem label="Themes" value={themes} />
-      <DetailItem label="Demographics" value={demographics} />
-      <DetailItem label="Synopsis" value={anime.synopsis} />
-      <DetailItem label="Background" value={anime.background} />
+      <img
+        className="animedetailsimg"
+        src={anime.image_url} // Adjusted to match your backend field
+        alt={anime.title}
+      />
+      <DetailItem label="English Title" value={anime.title_english || "N/A"} />
+      <DetailItem
+        label="Japanese Title"
+        value={anime.title_japanese || "N/A"}
+      />
+      <DetailItem label="Rating" value={anime.rating || "N/A"} />
+      <DetailItem
+        label="Genres"
+        value={anime.genres?.map((genre) => genre.name).join(", ") || "N/A"}
+      />
+      <DetailItem label="Year" value={anime.aired_from || "N/A"} />
+      <DetailItem label="Type" value={anime.type || "N/A"} />
+      <DetailItem
+        label="Episodes"
+        value={anime.episodes?.toString() || "N/A"}
+      />
+      <DetailItem label="Synopsis" value={anime.synopsis || "N/A"} />
+      <DetailItem label="Background" value={anime.background || "N/A"} />
 
-      <a className="animedetailsA" href={anime.url} target="_blank" rel="noopener noreferrer">
+      <a
+        className="animedetailsA"
+        href={anime.url || "#"}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <button className="button-62">More Info</button>
       </a>
-
-      {/* Conditionally render AnimeTrailer only if there is a trailer available */}
-      {anime.trailer && anime.trailer.url && <AnimeTrailer animeId={id!} />}
     </div>
   );
 };
