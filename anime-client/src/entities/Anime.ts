@@ -3,18 +3,6 @@ export interface Anime {
   id: number;
   url: string;
   image_url: string | undefined;
-  trailer: {
-    youtube_id: string | null;
-    url: string | null;
-    embed_url: string | null;
-    images: {
-      image_url: string | null;
-      small_image_url: string | null;
-      medium_image_url: string | null;
-      large_image_url: string | null;
-      maximum_image_url: string | null;
-    };
-  };
   approved: boolean;
   title: string;
   title_english: string | null;
@@ -32,6 +20,10 @@ export interface Anime {
   background: string | null;
   season: string | null;
   year: number | null;
+  trailer_youtube_id: string | null;
+  trailer_url: string | null;
+  trailer_embed_url: string | null;
+  trailer_image_url: string | null;
   genres: {
     id: number;
     name: string;

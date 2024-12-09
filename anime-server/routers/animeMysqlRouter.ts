@@ -22,6 +22,11 @@ interface ModifiedAnime {
   year: number | null;
   aired_from: Date | null;
   image_url: string | null;
+  url: string | null;
+  trailer_youtube_id: string | null;
+  trailer_url: string | null;
+  trailer_embed_url: string | null;
+  trailer_image_url: string | null;
   genres: Genre[];
 }
 
@@ -79,6 +84,11 @@ animeRouter.get("/", async (req, res) => {
       year: anime.year,
       aired_from: anime.aired_from,
       image_url: anime.image_url,
+      url: anime.url,
+      trailer_youtube_id: anime.trailer_youtube_id,
+      trailer_url: anime.trailer_url,
+      trailer_embed_url: anime.trailer_embed_url,
+      trailer_image_url: anime.trailer_image_url,
       genres: anime.genres,
     }));
 
@@ -126,6 +136,11 @@ animeRouter.get("/:id", async (req, res) => {
       year: anime.year,
       aired_from: anime.aired_from,
       image_url: anime.image_url,
+      url: anime.url,
+      trailer_youtube_id: anime.trailer_youtube_id,
+      trailer_url: anime.trailer_url,
+      trailer_embed_url: anime.trailer_embed_url,
+      trailer_image_url: anime.trailer_image_url,
       genres: anime.genres,
     };
 

@@ -67,6 +67,25 @@ export class Anime {
   @Column("varchar", { name: "image_url", nullable: true, length: 255 })
   image_url!: string | null;
 
+  @Column("varchar", { name: "url", nullable: true, length: 255 })
+  url!: string | null;
+
+  @Column("varchar", {
+    name: "trailer_youtube_id",
+    nullable: true,
+    length: 255,
+  })
+  trailer_youtube_id!: string | null;
+
+  @Column("varchar", { name: "trailer_url", nullable: true, length: 255 })
+  trailer_url!: string | null;
+
+  @Column("varchar", { name: "image_embed_url", nullable: true, length: 255 })
+  trailer_embed_url!: string | null;
+
+  @Column("varchar", { name: "trailer_image_url", nullable: true, length: 255 })
+  trailer_image_url!: string | null;
+
   @ManyToMany(() => Genre, (genre) => genre.animes)
   @JoinTable({
     name: "anime_genres",
