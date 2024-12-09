@@ -21,7 +21,7 @@ const SortSelector = () => {
   return (
     <Menu>
       <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-        Order by: {selectedSortOrder?.label || ""}
+        Order by: {selectedSortOrder?.label || "Relevance"}
       </MenuButton>
       <MenuList>
         {sortOrders.map((order) => (

@@ -27,14 +27,15 @@ export interface Anime {
   aired_from: string | null;
   rating: string;
   score: number;
+  popularity: number;
   synopsis: string | null;
   background: string | null;
   season: string | null;
   year: number | null;
   genres: {
-    mal_id: number;
-    type: string;
+    id: number;
     name: string;
+    type: string;
     url: string;
   }[];
 }

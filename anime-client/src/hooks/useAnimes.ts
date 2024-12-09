@@ -1,8 +1,8 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import ApiClient from "../services/api_client";
 import useAnimeQueryStore from "../store";
-import { Anime } from "../entities/Anime"; // Import your Anime type
-import { Response } from "../services/api_client"; // Assuming Response<T> is defined
+import { Anime } from "../entities/Anime";
+import { Response } from "../services/api_client";
 
 const apiClient = new ApiClient<Anime>("anime");
 
@@ -15,29 +15,46 @@ const useAnimes = () => {
       const params: Record<string, any> = {
         page: pageParam,
         q: animeQuery.searchText || "",
-        genres: animeQuery.genreId,
-        type: animeQuery.type,
-        rating: animeQuery.rating,
-        order_by: animeQuery.sortOrder || "",
-        sort:
-          animeQuery.sortOrder === "popularity"
-            ? "asc"
-            : animeQuery.sortOrder === "start_date"
-            ? "desc"
-            : animeQuery.sortOrder === "title"
-            ? "asc"
-            : "desc",
       };
 
+      // Fetch data from the backend
       const response = await apiClient.getAll({ params });
 
-      // Filter out items without a score or release date
-      const filteredResults =
-        animeQuery.sortOrder === "start_date"
-          ? response.results // Do not filter when sorting by release date
-          : response.results.filter(
-              (anime) => anime.score !== null && anime.aired_from !== null // Ensure valid score and release date for other sorts
-            );
+      // Apply filtering on the frontend
+      let filteredResults = response.results;
+
+      if (animeQuery.genreId) {
+        filteredResults = filteredResults.filter((anime) =>
+          anime.genres.some((genre) => genre.id === animeQuery.genreId)
+        );
+      }
+
+      if (animeQuery.type) {
+        filteredResults = filteredResults.filter(
+          (anime) => anime.type === animeQuery.type
+        );
+      }
+
+      if (animeQuery.rating) {
+        filteredResults = filteredResults.filter(
+          (anime) => anime.rating === animeQuery.rating
+        );
+      }
+
+      // Apply sorting on the frontend
+      if (animeQuery.sortOrder === "popularity") {
+        filteredResults.sort((a, b) => a.popularity - b.popularity);
+      } else if (animeQuery.sortOrder === "score") {
+        filteredResults.sort((a, b) => b.score - a.score);
+      } else if (animeQuery.sortOrder === "start_date") {
+        filteredResults.sort((a, b) => {
+          const dateA = a.aired_from ? new Date(a.aired_from).getTime() : 0;
+          const dateB = b.aired_from ? new Date(b.aired_from).getTime() : 0;
+          return dateB - dateA; // Descending order (newer dates first)
+        });
+      } else if (animeQuery.sortOrder === "title") {
+        filteredResults.sort((a, b) => a.title.localeCompare(b.title));
+      }
 
       return {
         ...response,
@@ -45,8 +62,7 @@ const useAnimes = () => {
       };
     },
     {
-      getNextPageParam: (lastPage) =>
-        lastPage.next ? lastPage.next : undefined,
+      getNextPageParam: (lastPage) => lastPage.next || undefined,
     }
   );
 };

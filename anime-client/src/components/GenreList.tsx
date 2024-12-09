@@ -1,4 +1,11 @@
-import { Button, Heading, HStack, List, ListItem, Spinner } from "@chakra-ui/react";
+import {
+  Button,
+  Heading,
+  HStack,
+  List,
+  ListItem,
+  Spinner,
+} from "@chakra-ui/react";
 import useGenres from "../hooks/useGenres";
 import { useState } from "react";
 import useAnimeQueryStore from "../store";
@@ -11,7 +18,9 @@ const GenreList = () => {
 
   const displayedGenres = isExpanded ? genres : genres.slice(0, 5);
 
-  const selectedGenreId = useAnimeQueryStore((state) => state.animeQuery.genreId);
+  const selectedGenreId = useAnimeQueryStore(
+    (state) => state.animeQuery.genreId
+  );
   const setSelectedGenreId = useAnimeQueryStore((state) => state.setGenreId);
 
   if (error) return <div>{error.message}</div>;
@@ -25,13 +34,13 @@ const GenreList = () => {
       </Heading>
       <List spacing={3}>
         {displayedGenres.map((genre) => (
-          <ListItem key={genre.mal_id} paddingY="5px">
+          <ListItem key={genre.id} paddingY="5px">
             <HStack>
               <Button
                 variant="link"
                 fontSize="lg"
-                onClick={() => setSelectedGenreId(genre.mal_id)}
-                colorScheme={selectedGenreId === genre.mal_id ? "yellow" : "white"}
+                onClick={() => setSelectedGenreId(genre.id)}
+                colorScheme={selectedGenreId === genre.id ? "yellow" : "white"}
               >
                 {genre.name}
               </Button>
